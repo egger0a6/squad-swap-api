@@ -1,6 +1,8 @@
 import mongoose from 'mongoose'
 
-const commentSchema = new mongoose.Schema({
+const Schema = mongoose.Schema
+
+const commentSchema = new Schema({
   content: String,
   owner: {type: Schema.Types.ObjectId, ref: "Profile"}
 },
@@ -8,7 +10,7 @@ const commentSchema = new mongoose.Schema({
   timestamps: true
 })
 
-const profileSchema = new mongoose.Schema({
+const profileSchema = new Schema({
   email: { type: String, required: true, lowercase: true, unique: true },
   name: String,
   friends: [{type: Schema.Types.ObjectId, ref: "Profile"}],
