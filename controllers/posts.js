@@ -1,4 +1,5 @@
 import { Post } from "../models/post.js"
+import { v2 as cloudinary } from "cloudinary"
 
 function create(req, res) {
   req.body.owner = req.user.profile
@@ -62,9 +63,30 @@ function deleteOne(req, res) {
   })
 }
 
+function addPhoto(req, res) {
+  console.log(req.body, req.files)
+  const imageFile = req.files.photo.path
+  Post.findById(req.params.id)
+  .then(post => {
+    cloudinary.uploader.upload(imageFile, {tags: `${post.title}`})
+    .then(image => {
+      post.photo = image.url
+      post.save()
+      .then(post => {
+        res.status(201).json(post.photo)
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json(err)
+    })
+  })
+}
+
 export {
   create,
   index,
   update,
   deleteOne as delete,
+  addPhoto
 }
