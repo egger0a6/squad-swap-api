@@ -60,6 +60,7 @@ function deleteOne(req, res) {
       res.status(401).json({err: "Not authorized!"})
     }
   })
+}
 
 export {
   create,
