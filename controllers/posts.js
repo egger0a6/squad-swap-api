@@ -48,8 +48,23 @@ function update(req, res) {
   })
 }
 
+function deleteOne(req, res) {
+  Post.findById(req.params.id)
+  .then(post => {
+    if (post.owner._id.equals(req.user.profile)) {
+      Post.findByIdAndDelete(post._id)
+      .then(deletedPost => {
+        res.json(deletedPost)
+      })
+    } else {
+      res.status(401).json({err: "Not authorized!"})
+    }
+  })
+}
+
 export {
   create,
   index,
-  update
+  update,
+  deleteOne as delete,
 }
