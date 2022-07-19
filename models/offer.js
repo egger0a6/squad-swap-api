@@ -9,10 +9,14 @@ const offerSchema = new Schema({
     min: 0,
     max: 100000
   },
-  description: String,
-  owner: {type: Schema.Type.ObjectId, ref: "Profile"},
-  post: {type: Schema.Type.ObjectId, ref: "Profile"}
+  comment: String,
+  owner: {type: Schema.Types.ObjectId, ref: "Profile"},
+  post: {type: Schema.Types.ObjectId, ref: "Profile"}
 },
 {
   timestamps: true
 })
+
+const Offer = mongoose.model("Offer", offerSchema)
+
+export { Offer }

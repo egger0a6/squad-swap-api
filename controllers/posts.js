@@ -64,7 +64,6 @@ function deleteOne(req, res) {
 }
 
 function addPhoto(req, res) {
-  console.log(req.body, req.files)
   const imageFile = req.files.photo.path
   Post.findById(req.params.id)
   .then(post => {
