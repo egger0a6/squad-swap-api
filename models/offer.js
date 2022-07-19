@@ -9,7 +9,7 @@ const offerSchema = new Schema({
     min: 0,
     max: 100000
   },
-  description: String,
+  comment: String,
   owner: {type: Schema.Type.ObjectId, ref: "Profile"},
   post: {type: Schema.Type.ObjectId, ref: "Profile"}
 },

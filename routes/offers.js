@@ -8,5 +8,6 @@ const router = Router()
 
 // Protected Routes
 router.use(decodeUserFromToken)
+router.post("/", checkAuth, offersCtrl.create)
 
 export { router }
