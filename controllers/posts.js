@@ -61,6 +61,10 @@ function deleteOne(req, res) {
       res.status(401).json({err: "Not authorized!"})
     }
   })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
 }
 
 function addPhoto(req, res) {

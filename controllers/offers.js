@@ -36,7 +36,28 @@ function update(req, res) {
   })
 }
 
+function deleteOne(req, res) {
+  Offer.findById(req.params.id)
+  .then(offer => {
+    if (offer.owner._id.equals(req.user.profile)) {
+      Offer.findByIdAndDelete(offer._id)
+      .then(deletedOffer => {
+        res.json(deletedOffer)
+      })
+    }
+    else {
+      res.status(401).json({err: "Not Authorized"})
+    }
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+  
+}
+
 export {
   create,
-  update
+  update,
+  deleteOne as delete
 }
