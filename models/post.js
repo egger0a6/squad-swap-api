@@ -22,7 +22,8 @@ const postSchema = new Schema({
   condition: String,
   tags: [String],
   owner: {type: Schema.Types.ObjectId, ref: "Profile"},
-  review: {type: Schema.Types.ObjectId, ref: "Review"}
+  review: {type: Schema.Types.ObjectId, ref: "Review"},
+  sold: {type: Boolean, default: false}
 },
 {
   timestamps: true
