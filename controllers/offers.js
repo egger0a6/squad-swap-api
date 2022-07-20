@@ -58,6 +58,7 @@ function deleteOne(req, res) {
 
 function getPosts(req, res) {
   Offer.find({post: req.params.id})
+  .populate("owner")
   .then(offers => {
     res.json(offers)
   })
