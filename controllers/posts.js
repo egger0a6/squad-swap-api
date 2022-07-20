@@ -29,6 +29,18 @@ function index(req, res) {
   })
 }
 
+function show(req, res) {
+  Post.findById(req.params.id)
+  .populate("owner")
+  .then(post => {
+    res.json(post)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+}
+
 function update(req, res) {
   Post.findById(req.params.id)
   .then((post) => {
@@ -89,6 +101,7 @@ function addPhoto(req, res) {
 export {
   create,
   index,
+  show,
   update,
   deleteOne as delete,
   addPhoto

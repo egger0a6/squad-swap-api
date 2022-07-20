@@ -56,8 +56,20 @@ function deleteOne(req, res) {
   
 }
 
+function getPosts(req, res) {
+  Offer.find({post: req.params.id})
+  .then(offers => {
+    res.json(offers)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+}
+
 export {
   create,
   update,
-  deleteOne as delete
+  deleteOne as delete,
+  getPosts
 }
