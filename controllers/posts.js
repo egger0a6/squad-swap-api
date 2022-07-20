@@ -1,4 +1,5 @@
 import { Post } from "../models/post.js"
+import { Offer } from "../models/offer.js"
 import { v2 as cloudinary } from "cloudinary"
 
 function create(req, res) {
@@ -98,11 +99,31 @@ function addPhoto(req, res) {
   })
 }
 
+function closePost(req, res) {
+  Offer.deleteMany({post: req.params.id})
+  .then(offers => {
+    Post.findById(req.params.id)
+    .populate("owner")
+    .then(post => {
+      post.sold = true
+      post.save()
+      .then(updatedPost => {
+        res.json(updatedPost)
+      })
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+}
+
 export {
   create,
   index,
   show,
   update,
   deleteOne as delete,
-  addPhoto
+  addPhoto,
+  closePost
 }
