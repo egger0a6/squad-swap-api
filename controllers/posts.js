@@ -103,9 +103,9 @@ function closePost(req, res) {
   Offer.deleteMany({post: req.params.id})
   .then(offers => {
     Post.findById(req.params.id)
+    .populate("owner")
     .then(post => {
       post.sold = true
-      .populate("owner")
       post.save()
       .then(updatedPost => {
         res.json(updatedPost)
