@@ -39,6 +39,19 @@ function addPhoto(req, res) {
     })
 }
 
+function addComment(req, res) {
+  Profile.findById(req.params.id)
+  .then(profile => {
+    profile.comments.push(req.body)
+    profile.save()
+    .then(updatedProfile => {
+      res.json(updatedProfile)
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({ err: err.errmsg })
+  })
+}
 
-
-export { index, show, addPhoto }
+export { index, show, addPhoto, addComment }
