@@ -26,7 +26,7 @@ function addPhoto(req, res) {
     .then(profile => {
       cloudinary.uploader.upload(imageFile, { tags: `${profile.email}` })
         .then(image => {
-          profile.photo = image.url
+          profile.photo = image.secure_url
           profile.save()
             .then(profile => {
               res.status(201).json(profile.photo)
