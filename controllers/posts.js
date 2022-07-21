@@ -86,7 +86,8 @@ function addPhoto(req, res) {
   .then(post => {
     cloudinary.uploader.upload(imageFile, {tags: `${post.title}`})
     .then(image => {
-      post.photo = image.url
+      console.log(image)
+      post.photo = image.secure_url
       post.save()
       .then(post => {
         res.status(201).json(post.photo)
